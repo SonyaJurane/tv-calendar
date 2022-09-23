@@ -25,3 +25,5 @@ yarn-error.log*
 
 #enc
 .env
+
+/dist

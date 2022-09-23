@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": ["standard-with-typescript", "airbnb-typescript", "prettier"],
+
+  "overrides": [],
+
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
+  },
+  "plugins": [],
+  "rules": { "react/jsx-filename-extension": [0] }
+}
