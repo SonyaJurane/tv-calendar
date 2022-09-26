@@ -15,7 +15,7 @@ export interface Show {
   rating?: Rating;
   weight?: number;
   network?: Network;
-  webChannel?: string;
+  webChannel?: WebChannel;
   dvdCountry?: string;
   externals?: ExternalIds;
   image?: ImageLinks;
@@ -39,6 +39,13 @@ export interface Episode {
   image?: ImageLinks;
   summary?: string;
   _links?: Links;
+}
+
+export interface WebChannel {
+  id: number;
+  name: string;
+  country: string;
+  officialSite: string;
 }
 
 export interface Links {

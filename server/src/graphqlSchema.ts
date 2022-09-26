@@ -59,6 +59,15 @@ const imageLinksSchema = `
     }
 `;
 
+const webChannelSchema = `
+    type WebChannel {
+        id: Int
+        name: String
+        country: String
+        officialSite: String
+    }
+`;
+
 const showSchema = `  
     type Show {
         id: Int!
@@ -76,7 +85,7 @@ const showSchema = `
         rating: Rating
         weight: Int
         network: Network
-        webChannel: String
+        webChannel: WebChannel
         dvdCountry: String
         externals: ExternalIds
         image: ImageLinks
@@ -101,6 +110,7 @@ export const Schema = buildSchema(`
   ${linkSchema}
   ${linksSchema}
   ${imageLinksSchema}
+  ${webChannelSchema}
   ${showSchema}
   ${querySchema}
 `);
