@@ -8,8 +8,8 @@ export interface Show {
   status?: string;
   runtime?: number;
   averageRuntime?: number;
-  premiered?: Date;
-  ended?: Date;
+  premiered?: string;
+  ended?: string;
   officialSite?: string;
   schedule?: Schedule;
   rating?: Rating;
@@ -17,7 +17,7 @@ export interface Show {
   network?: Network;
   webChannel?: string;
   dvdCountry?: string;
-  externals?: Externals;
+  externals?: ExternalIds;
   image?: ImageLinks;
   summary?: string;
   updated?: number;
@@ -31,9 +31,9 @@ export interface Episode {
   season?: number;
   number?: number;
   type?: string;
-  airdate?: Date;
+  airdate?: string;
   airtime?: string;
-  airstamp?: Date;
+  airstamp?: string;
   runtime?: number;
   rating?: Rating;
   image?: ImageLinks;
@@ -51,7 +51,7 @@ export interface Link {
   href?: string;
 }
 
-export interface Externals {
+export interface ExternalIds {
   tvrage?: number;
   thetvdb?: number;
   imdb?: string;
