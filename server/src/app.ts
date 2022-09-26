@@ -2,6 +2,7 @@ import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
 import Axios from "axios";
+import { Show } from "./types";
 
 const app = express();
 const port = 8080;
@@ -18,17 +19,6 @@ const schema = buildSchema(`
     search(prompt : String!): [Show]
   }
 `);
-
-interface SearchArgs {
-  prompt: string;
-}
-
-interface Show {
-  id: string;
-  name: string;
-  language?: string;
-  url?: string;
-}
 
 const searchShow = async (namePrompt: string): Promise<[Show] | undefined> => {
   try {
@@ -49,7 +39,12 @@ const searchShow = async (namePrompt: string): Promise<[Show] | undefined> => {
 };
 
 const root = {
-  search: async ({ prompt }: SearchArgs): Promise<[Show] | undefined> => {
+  search: async ({
+    prompt,
+  }: {
+    prompt: string;
+  }): Promise<[Show] | undefined> => {
+    console.log(prompt);
     return searchShow(prompt);
   },
 };
