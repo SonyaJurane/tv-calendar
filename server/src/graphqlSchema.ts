@@ -1,118 +1,121 @@
-import { buildSchema } from "graphql";
+import {
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString,
+} from "graphql";
 
-const ratingSchema = `  
-    type Rating {
-        average: Float
-    }
-`;
+import { searchShow } from "./misc";
 
-const countrySchema = `  
-    type Country {
-        name: String
-        code: String
-        timezone: String
-    }
-`;
+const ShowType = new GraphQLObjectType({
+  name: "Show",
+  description: "This represents a show",
+  fields: () => ({
+    id: { type: GraphQLNonNull(GraphQLInt) },
+    name: { type: GraphQLString },
+    url: { type: GraphQLString },
+    type: { type: GraphQLString },
+    language: { type: GraphQLString },
+    genres: { type: GraphQLList(GraphQLString) },
+    status: {
+      type: GraphQLString,
+    },
+    runtime: {
+      type: GraphQLInt,
+    },
+    averageRuntime: {
+      type: GraphQLInt,
+    },
+    premiered: {
+      type: GraphQLString,
+    },
+    ended: {
+      type: GraphQLString,
+    },
+    officialSite: {
+      type: GraphQLString,
+    },
+    schedule: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+    rating: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+    weight: {
+      type: GraphQLInt,
+    },
+    network: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+    webChannel: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+    dvdCountry: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+    externals: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+    image: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+    summary: {
+      type: GraphQLString,
+    },
+    updated: {
+      type: GraphQLInt,
+    },
+    _links: {
+      type: GraphQLString,
+      resolve: () => {
+        return "Not implemented";
+      },
+    },
+  }),
+});
 
-const scheduleSchema = `  
-    type Schedule {
-        time: String
-        days: [String]
-    }
-`;
+const RootQueryType = new GraphQLObjectType({
+  name: "Query",
+  description: "Root Query",
+  fields: () => ({
+    search: {
+      type: new GraphQLList(ShowType),
+      description: "Retrieve a list of shows based on prompt",
+      args: {
+        prompt: { type: GraphQLString },
+      },
+      resolve: async (parent, args) => {
+        return searchShow(args.prompt);
+      },
+    },
+  }),
+});
 
-const networkSchema = `  
-    type Network {
-        id: Int
-        name: String
-        country: Country
-        officialSite: String
-    }
-`;
-
-const externalIdsSchema = `  
-    type ExternalIds {
-        tvrage: Int
-        thetvdb: Int
-        imdb: String
-    }
-`;
-
-const linkSchema = `
-    type Link {
-        href: String
-    }
-`;
-
-const linksSchema = `  
-type Links {
-    self: Link
-    previousepisode: Link
-    nextepisode: Link
-  }
-`;
-
-const imageLinksSchema = `  
-    type ImageLinks {
-        medium: String
-        original: String
-    }
-`;
-
-const webChannelSchema = `
-    type WebChannel {
-        id: Int
-        name: String
-        country: String
-        officialSite: String
-    }
-`;
-
-const showSchema = `  
-    type Show {
-        id: Int!
-        name: String
-        type: String
-        language: String
-        genres: [String]
-        status: String
-        runtime: Int
-        averageRuntime: Int
-        premiered: String
-        ended: String
-        officialSite: String
-        schedule: Schedule
-        rating: Rating
-        weight: Int
-        network: Network
-        webChannel: WebChannel
-        dvdCountry: String
-        externals: ExternalIds
-        image: ImageLinks
-        summary: String
-        updated: Int
-        _links: Links
-    }
-`;
-
-const querySchema = `  
-    type Query {
-        search(prompt : String!): [Show]
-    }
-  `;
-
-export const Schema = buildSchema(`
-  ${ratingSchema}
-  ${countrySchema}
-  ${scheduleSchema}
-  ${networkSchema}
-  ${externalIdsSchema}
-  ${linkSchema}
-  ${linksSchema}
-  ${imageLinksSchema}
-  ${webChannelSchema}
-  ${showSchema}
-  ${querySchema}
-`);
+export const Schema = new GraphQLSchema({
+  query: RootQueryType,
+});
 
 export default Schema;
