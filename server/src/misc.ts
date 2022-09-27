@@ -9,10 +9,8 @@ export const searchShow = async (
     console.log(requestString);
     const response = await Axios.get(requestString);
     const data = response.data;
-    const shows = data.map(({ show }: any) => ({
-      id: show.id,
-      url: show.url,
-      name: show.name,
+    const shows = data.map(({ show }: { show: Show }) => ({
+      ...show,
     }));
     return shows;
   } catch (error) {
