@@ -1,14 +1,18 @@
 import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import Schema from "./graphqlSchema";
 
 const app = express();
-const port = 8080; // default port to listen
+const port = 8080;
 
-// define a route handler for the default home page
-app.get("/", (req, res) => {
-  res.send("Hello world!");
+app.use("/graphql", (req, res, next) => {
+  const promise = graphqlHTTP({
+    schema: Schema,
+    graphiql: true,
+  })(req, res);
+  promise.then(() => next()).catch((err) => next(err));
 });
 
-// start the Express server
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
