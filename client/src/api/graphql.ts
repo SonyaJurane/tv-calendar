@@ -22,8 +22,8 @@ export const searchShows = async (
   };
   try {
     const res = await fetch(GRAPH_QL_ENDPOINT, fetchParams);
-    const shows: { data: Show[] } = await res.json();
-    return shows.data;
+    const shows: { data: { search: Show[] } } = await res.json();
+    return shows.data.search;
   } catch (error) {
     console.error(error);
   }
