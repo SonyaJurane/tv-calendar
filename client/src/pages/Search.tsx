@@ -1,34 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { searchShows } from "../api";
+import React, { useState } from "react";
 import { Show } from "../types";
-import { Grid, Card, TextField } from "@mui/material";
-import { useDebounce } from "../hooks";
+import { searchShows } from "../api";
+import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import { SearchBar } from "../components";
 
 export const Search = (): JSX.Element => {
-  const [searchFieldValue, setSearchFieldValue] = useState("");
-  const debouncedValue = useDebounce(searchFieldValue);
-
   const [shows, setShows] = useState<Show[] | undefined>();
-
-  useEffect(() => {
-    if (debouncedValue !== "") {
-      searchShows(debouncedValue, "id name")
-        .then((result) => {
-          setShows(result);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, [debouncedValue]);
 
   return (
     <>
-      <TextField
-        onChange={(e) => setSearchFieldValue(e.target.value)}
-      ></TextField>
+      <SearchBar setSearchResults={setShows} searchFunction={searchShows} />
       <Grid container spacing={2}>
         {shows?.map((show) => (
           <Grid item key={show.id}>
-            <Card sx={{ height: 140, width: 100 }}>{show.name}</Card>
+            <Card sx={{ width: 130 }}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={show.image?.medium}
+              ></CardMedia>
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  {show.name}
+                </Typography>
+              </CardContent>
+            </Card>
           </Grid>
         ))}
       </Grid>
