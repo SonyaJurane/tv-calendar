@@ -8,6 +8,51 @@ import {
 } from "graphql";
 
 import { searchShow } from "./misc";
+import { LinksArgs } from "./types";
+
+const ImageType = new GraphQLObjectType({
+  name: "Image",
+  description: "Images from the api",
+  fields: () => ({
+    medium: {
+      type: GraphQLString,
+      resolve: (parent: { medium: string; original: string }) => {
+        return parent?.medium;
+      },
+    },
+    original: {
+      type: GraphQLString,
+      resolve: (parent: { medium: string; original: string }) => {
+        return parent?.original;
+      },
+    },
+  }),
+});
+
+const LinksType = new GraphQLObjectType({
+  name: "Links",
+  description: "Links that are returned from rest api",
+  fields: () => ({
+    self: {
+      type: GraphQLString,
+      resolve: (parent: LinksArgs) => {
+        return parent?.self?.href;
+      },
+    },
+    previousepisode: {
+      type: GraphQLString,
+      resolve: (parent: LinksArgs) => {
+        return parent?.previousepisode?.href;
+      },
+    },
+    nextepisode: {
+      type: GraphQLString,
+      resolve: (parent: LinksArgs) => {
+        return parent?.nextepisode?.href;
+      },
+    },
+  }),
+});
 
 const ShowType = new GraphQLObjectType({
   name: "Show",
@@ -77,10 +122,7 @@ const ShowType = new GraphQLObjectType({
       },
     },
     image: {
-      type: GraphQLString,
-      resolve: () => {
-        return "Not implemented";
-      },
+      type: ImageType,
     },
     summary: {
       type: GraphQLString,
@@ -89,10 +131,7 @@ const ShowType = new GraphQLObjectType({
       type: GraphQLInt,
     },
     _links: {
-      type: GraphQLString,
-      resolve: () => {
-        return "Not implemented";
-      },
+      type: LinksType,
     },
   }),
 });
