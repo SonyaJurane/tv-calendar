@@ -25,9 +25,11 @@ export const Search = (): JSX.Element => {
       <TextField
         onChange={(e) => setSearchFieldValue(e.target.value)}
       ></TextField>
-      <Grid>
+      <Grid container spacing={2}>
         {shows?.map((show) => (
-          <Card key={show.id}>{show.name}</Card>
+          <Grid item key={show.id}>
+            <Card sx={{ height: 140, width: 100 }}>{show.name}</Card>
+          </Grid>
         ))}
       </Grid>
     </>
