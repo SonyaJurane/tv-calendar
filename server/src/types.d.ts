@@ -49,13 +49,9 @@ export interface WebChannel {
 }
 
 export interface Links {
-  self?: Link;
-  previousepisode?: Link;
-  nextepisode?: Link;
-}
-
-export interface Link {
-  href?: string;
+  self?: string;
+  previousepisode?: string;
+  nextepisode?: string;
 }
 
 export interface ExternalIds {
@@ -89,4 +85,10 @@ export interface Rating {
 export interface Schedule {
   time?: string;
   days?: string[];
+}
+
+export interface LinksArgs {
+  self: { href: string };
+  previousepisode: { href: string };
+  nextepisode: { href: string };
 }
