@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+<<<<<<< HEAD:src/App.tsx
 import { Main, About, Landing } from "./pages";
 import { createTheme, ThemeProvider } from "@mui/material";
 // import Paper from '@mui/material/Paper';
@@ -57,6 +58,18 @@ export const App = (): JSX.Element => {
         <Route path="/landing" element={<Landing />} />
       </Routes>
     </ThemeProvider>
+=======
+import { Main, About, Landing, Search } from "./pages";
+
+export const App = (): JSX.Element => {
+  return (
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/landing" element={<Landing />} />
+      <Route path="/search" element={<Search />} />
+    </Routes>
+>>>>>>> master:client/src/App.tsx
   );
 };
 
