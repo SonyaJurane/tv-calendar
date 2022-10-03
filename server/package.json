@@ -4,7 +4,7 @@
   "description": "",
   "main": "api/index.js",
   "scripts": {
-    "start": "ts-node src/app.ts",
+    "start": "ts-node src/index.ts",
     "lint": "eslint . --ext .ts",
     "build": "tsc -p .",
     "start-dev": "nodemon --exec \"npm run lint && npm run start\""
