@@ -13,6 +13,10 @@ app.use(
   })
 );
 
+app.use("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 app.use("/graphql", (req, res, next) => {
   const promise = graphqlHTTP({
     schema: Schema,
@@ -22,5 +26,5 @@ app.use("/graphql", (req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+  console.log(`server started at ${port}`);
 });
