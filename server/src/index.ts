@@ -4,7 +4,10 @@ import { graphqlHTTP } from "express-graphql";
 import Schema from "./graphqlSchema";
 
 const app = express();
-const port = 8080;
+const port =
+  process.env.PORT !== null && process.env.PORT !== ""
+    ? process.env.PORT
+    : 8080;
 
 app.use(
   cors({
